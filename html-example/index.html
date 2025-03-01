@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Skew Effect Example</title>
+    <!-- 确保引入你的cssW.js -->
+    <script src="./../cssWorld/cssW.js"></script>
+    <style>
+        /* 可选: 添加一些基本样式 */
+        .skew-text {
+            font-size: 2em;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 应用效果的目标元素 -->
+    <span class="skew-text">Hello, CSS World!</span>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // // 使用cssW.textSkew方法应用效果
+            // cssW.textSkew('.skew-text');
+
+            // 或者使用自定义选项
+            cssW.textSkew('.skew-text', {
+                translateX: '-8px',
+                translateY: '7px',
+                scaleY: '0.5',
+                skew: '30deg',
+                blur: '2px'
+            });
+        });
+    </script>
+
+</body>
+
+</html>

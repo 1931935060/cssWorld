@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 文字倒影效果</title>
+    <style>
+        /* 您可以直接写css效果案例 ，类似与这个文件*/
+        /* "You can directly write CSS effect examples similar to this file." */
+        body {
+            font-family: "SimHei", "Heiti SC", "黑体", sans-serif; /* 设置字体 */
+        }
+
+        .wrap {
+            display: grid;
+            place-items: center;  /* 同时水平和垂直居中 */
+            height: 100vh;
+        }
+
+        .text-effect {
+            position: relative;
+            font-size: 48px;
+            color: black;
+            transition: all 0.5s ease;
+            font-weight: 900; /* 设置字体粗细 */
+        }
+
+        .text-effect::before {
+            content: "Good Day!";
+            color: black;
+            position: absolute;
+            left: 0;
+            transform: translate(-15px, 8px) scaleY(0.5) skew(34deg);
+            -webkit-filter: blur(3px);
+            z-index: -1;
+            -webkit-mask-image: linear-gradient(transparent, black);
+            transition: all 0.5s ease;
+            font-weight: 900; /* 确保伪元素的字体同样粗 */
+        }
+
+        .text-effect:hover::before {
+            transform: translate(-15px, 6px) scaleY(0.6) skew(37deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="text-effect">Good Day!</div>
+    </div>
+</body>
+
+</html>

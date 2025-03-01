@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>cssW Text Skew Example</title>
+    <style>
+        /* 示例页面的基本样式 */
+        .container {
+            margin: 50px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 目标元素：将在这个元素上应用cssW的效果 -->
+    <div class="your-selector">Hello, cssW!</div>
+</div>
+
+<!-- 引入包含cssW类定义的脚本文件 -->
+<script>
+    // 这里插入之前提供的cssW类定义代码
+    class cssW {
+        constructor(element, options = {}) {
+            this.element = element;
+            this.options = options; 
+            this.text = this.fetchTextContent();
+            this.applyStyles();
+            this.setText();
+        }
+
+        applyStyles() {
+            const style = document.createElement('style');
+            style.id = 'cssWorldStyles';
+            style.innerHTML = `
+                .t-skew-cssW {
+                    position: relative;
+                    display: inline-block;
+                }
+                .t-skew-cssW::before {
+                    content: attr(data-content);
+                    color: black;
+                    position: absolute;
+                    left: 0;
+                    transform: translate(${this.options.translateX}, ${this.options.translateY}) scaleY(${this.options.scaleY}) skew(${this.options.skew});
+                    filter: blur(${this.options.blur});
+                    z-index: -1;
+                    mask-image: linear-gradient(transparent, black);
+                }
+            `;
+            document.getElementsByTagName('head')[0].appendChild(style);
+
+            this.element.classList.add('t-skew-cssW');
+        }
+
+        setText() {
+            this.element.setAttribute('data-content', this.text);
+        }
+
+        fetchTextContent() {
+            return this.element.textContent || this.element.innerText;
+        }
+
+        static textSkew(selector, options) {
+            const defaultOptions = {
+                translateX: '-15px',
+                translateY: '8px',
+                scaleY: '0.5',
+                skew: '34deg',
+                blur: '3px'
+            };
+            const element = document.querySelector(selector);
+            if (!element) throw new Error('Element not found');
+
+            return new cssW(element, Object.assign({}, defaultOptions, options));
+        }
+    }
+</script>
+
+<!-- 调用cssW.textSkew方法，为指定的选择器添加文本倾斜效果 -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        cssW.textSkew('.your-selector'); // 使用默认选项
+
+        // 或者使用自定义选项
+        // cssW.textSkew('.your-selector', {
+        //     translateX: '-20px',
+        //     translateY: '10px',
+        //     scaleY: '0.7',
+        //     skew: '45deg',
+        //     blur: '5px'
+        // });
+    });
+</script>
+</body>
+</html>
